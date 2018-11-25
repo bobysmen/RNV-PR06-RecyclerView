@@ -218,27 +218,40 @@ public class Profile extends AppCompatActivity {
     }
 
     private void fillFieldsProfile(User userIn) {
-        lblName.setText(userIn.getName());
-        lblEmail.setText(userIn.getEmail());
-        lblPhoneNumber.setText(userIn.getPhoneNumber());
-        lblAddress.setText(userIn.getAddress());
-        lblWeb.setText(userIn.getWeb());
+        txtName.setText(userIn.getName());
+        txtEmail.setText(userIn.getEmail());
+        txtPhoneNumber.setText(userIn.getPhoneNumber());
+        txtAddress.setText(userIn.getAddress());
+        txtWeb.setText(userIn.getWeb());
         imgAvatar.setImageResource(userIn.getAvatar().getImageResId());
     }
 
     private void intentUserToCard(){
         Intent intent = new Intent();
-        User userOut = new User(
-                userIn.getId(), txtName.getText().toString(), txtEmail.getText().toString(), txtPhoneNumber.getText().toString(), txtAddress.getText().toString(), txtWeb.getText().toString(), viewModel.getAvatar());
+        User userOut = null;
+        if (userIn!=null) {
+            userOut = new User(
+                    userIn.getId(), txtName.getText().toString(), txtEmail.getText().toString(), txtPhoneNumber.getText().toString(), txtAddress.getText().toString(), txtWeb.getText().toString(), viewModel.getAvatar());
+        }else{
+            //put id -1 to know that i dont know user id. In dataBaseUser change id for list size.
+            userOut = new User(
+                    -1, txtName.getText().toString(), txtEmail.getText().toString(), txtPhoneNumber.getText().toString(), txtAddress.getText().toString(), txtWeb.getText().toString(), viewModel.getAvatar());
+        }
         intent.putExtra(EXTRA_USER_TO_CARD, userOut);
         setResult(RESULT_OK, intent);
         finish();
     }
 
-    //startForResult of the MainCardView
+    //startForResult of the MainCardView with user
     public static void startForResult(Activity activity, int requestCode, User user){
         Intent intent = new Intent(activity, Profile.class);
         intent.putExtra(EXTRA_USER_FROM_CARD, user);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    //starForResultof the MainCardView without user
+    public static void startForResult(Activity activity, int requestCode){
+        Intent intent = new Intent(activity, Profile.class);
         activity.startActivityForResult(intent, requestCode);
     }
 

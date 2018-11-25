@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -19,9 +18,10 @@ import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 
 public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.ViewHolder> {
 
-    private final OnUserClickListener onUserClickListener;
+    private final OnUserClickListenerDelete onUserClickListenerDelete;
+    private final OnUserClickListenerEdit onUserClickListenerEdit;
 
-    public MainViewCardAdapter(OnUserClickListener onUserClickListener) {
+    public MainViewCardAdapter(OnUserClickListenerDelete onUserClickListenerDelete, OnUserClickListenerEdit onUserClickListenerEdit) {
         super(new DiffUtil.ItemCallback<User>(){
 
             @Override
@@ -37,7 +37,8 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
                         oldItem.getAvatar().getImageResId() == newItem.getAvatar().getImageResId();
             }
         });
-        this.onUserClickListener = onUserClickListener;
+        this.onUserClickListenerDelete = onUserClickListenerDelete;
+        this.onUserClickListenerEdit = onUserClickListenerEdit;
     }
 
     @NonNull
@@ -45,7 +46,7 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.activity_card_item, parent, false), onUserClickListener);
+                        .inflate(R.layout.activity_card_item, parent, false), onUserClickListenerDelete, onUserClickListenerEdit);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
         private final Button btnEdit;
         private final Button btnDelete;
 
-        public ViewHolder(@NonNull View itemView, OnUserClickListener onUserClickListener) {
+        public ViewHolder(@NonNull View itemView, OnUserClickListenerDelete onUserClickListenerDelete, OnUserClickListenerEdit onUserClickListenerEdit) {
             super(itemView);
             lblName = ViewCompat.requireViewById(itemView, R.id.lblName);
             lblEmail = ViewCompat.requireViewById(itemView, R.id.lblEmail);
@@ -82,8 +83,8 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
             imgAvatar = ViewCompat.requireViewById(itemView, R.id.imgAvatar);
             btnEdit = ViewCompat.requireViewById(itemView, R.id.itemButtonEdit);
             btnDelete = ViewCompat.requireViewById(itemView, R.id.itemButtonDelete);
-            btnEdit.setOnClickListener(v -> onUserClickListener.onItemClick(getAdapterPosition()));
-            btnDelete.setOnClickListener(v -> onUserClickListener.onItemClick(getAdapterPosition()));
+            btnEdit.setOnClickListener(v -> onUserClickListenerEdit.onItemClick(getAdapterPosition()));
+            btnDelete.setOnClickListener(v -> onUserClickListenerDelete.onItemClick(getAdapterPosition()));
         }
 
         void bind(User user){

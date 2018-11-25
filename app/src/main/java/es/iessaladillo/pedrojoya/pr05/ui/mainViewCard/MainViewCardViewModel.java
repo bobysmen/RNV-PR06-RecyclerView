@@ -25,7 +25,7 @@ public class MainViewCardViewModel extends ViewModel {
         dataBaseUser.deleteUser(user);
     }
 
-    public void editUser(User user) {
-        dataBaseUser.editUser(user);
+    public void addUser(User user) {
+        dataBaseUser.addUser(user);
     }
 }

@@ -15,9 +15,9 @@ public class DataBaseUser {
     private Database avatarDataBase = Database.getInstance();
 
     private final ArrayList<User> users = new ArrayList<>(Arrays.asList(
-            new User(1,"Ruben", "ruben@ruben.com","666111222","Calle Guerrita", "www.google.es", avatarDataBase.queryAvatar(1)),
-            new User(2,"Ismael", "ismael@ismael.com","666000789","Calle Falsa", "www.google.es", avatarDataBase.queryAvatar(2)),
-            new User(3,"Raquel", "raquel@raquel.com","666147258","Calle Incierta", "www.google.es", avatarDataBase.queryAvatar(3))
+            new User(0,"Ruben", "ruben@ruben.com","666111222","Calle Guerrita", "www.google.es", avatarDataBase.queryAvatar(1)),
+            new User(1,"Ismael", "ismael@ismael.com","666000789","Calle Falsa", "www.google.es", avatarDataBase.queryAvatar(2)),
+            new User(2,"Raquel", "raquel@raquel.com","666147258","Calle Incierta", "www.google.es", avatarDataBase.queryAvatar(3))
     ));
 
     private final MutableLiveData <List<User>> usersLiveData = new MutableLiveData<>();
@@ -39,8 +39,16 @@ public class DataBaseUser {
         updateUsersLiveData();
     }
 
-    public void editUser(User user) {
-        users.add(user);
-        updateUsersLiveData();
+    public void addUser(User user) {
+        //when the user is new and i dont know its id
+        if (user.getId()==-1) {
+            user.setId(users.size());
+            users.add(user);
+            updateUsersLiveData();
+        }else{
+            users.add(user);
+            updateUsersLiveData();
+        }
+
     }
 }
