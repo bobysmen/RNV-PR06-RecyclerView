@@ -45,9 +45,9 @@ public class MainViewCard extends AppCompatActivity {
         b.lstUsers.setItemAnimator(new DefaultItemAnimator());
         b.lstUsers.setAdapter(listAdapter);
 
-        b.lblEmptyView.setOnClickListener(v -> {
-          addIntentUser();
-        });
+        b.lblEmptyView.setOnClickListener(v -> addIntentUser());
+
+        b.fab.setOnClickListener(v -> addIntentUser());
     }
 
     private void addIntentUser() {
