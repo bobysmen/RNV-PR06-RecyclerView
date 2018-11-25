@@ -6,11 +6,11 @@ import es.iessaladillo.pedrojoya.pr05.data.local.model.Avatar;
 public class AvatarActivityViewModel extends ViewModel {
     private Avatar avatar;
 
-    public Avatar getUser() {
+    public Avatar getAvatar() {
         return avatar;
     }
 
-    public void setUser(Avatar avatar) {
+    public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
 }

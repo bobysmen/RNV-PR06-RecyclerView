@@ -171,8 +171,8 @@ public class AvatarActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent!=null && intent.hasExtra(EXTRA_AVATAR_FROM_MAIN)){
             avatarIn = intent.getParcelableExtra(EXTRA_AVATAR_FROM_MAIN);
-            viewModel.setUser(avatarIn);
-            setColorSelectAvatar(viewModel.getUser().getId());
+            viewModel.setAvatar(avatarIn);
+            setColorSelectAvatar(viewModel.getAvatar().getId());
         }
     }
 

@@ -71,6 +71,7 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
         private final TextView lblEmail;
         private final TextView lblPhoneNumber;
         private final ImageView imgAvatar;
+        private final Button btnEdit;
         private final Button btnDelete;
 
         public ViewHolder(@NonNull View itemView, OnUserClickListener onUserClickListener) {
@@ -79,7 +80,9 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
             lblEmail = ViewCompat.requireViewById(itemView, R.id.lblEmail);
             lblPhoneNumber = ViewCompat.requireViewById(itemView, R.id.lblPhonenumber);
             imgAvatar = ViewCompat.requireViewById(itemView, R.id.imgAvatar);
+            btnEdit = ViewCompat.requireViewById(itemView, R.id.itemButtonEdit);
             btnDelete = ViewCompat.requireViewById(itemView, R.id.itemButtonDelete);
+            btnEdit.setOnClickListener(v -> onUserClickListener.onItemClick(getAdapterPosition()));
             btnDelete.setOnClickListener(v -> onUserClickListener.onItemClick(getAdapterPosition()));
         }
 

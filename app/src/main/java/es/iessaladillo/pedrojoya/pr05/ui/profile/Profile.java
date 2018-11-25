@@ -1,5 +1,6 @@
 package es.iessaladillo.pedrojoya.pr05.ui.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.pedrojoya.pr05.R;
+import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 import es.iessaladillo.pedrojoya.pr05.ui.avatar.AvatarActivity;
 
 import static es.iessaladillo.pedrojoya.pr05.data.local.Database.getInstance;
@@ -37,6 +39,8 @@ import static es.iessaladillo.pedrojoya.pr05.utils.ValidationUtils.isValidUrl;
 public class Profile extends AppCompatActivity {
 
     public final int RC_IMG_AVATAR=1;
+    public static final String EXTRA_USER_FROM_CARD="EXTRA_USER_FROM_CARD";
+    public static final String EXTRA_USER_TO_CARD="EXTRA_USER_TO_CARD";
 
     private TextView lblName;
     private EditText txtName;
@@ -55,6 +59,8 @@ public class Profile extends AppCompatActivity {
     private ImageView imgAvatar;
     private TextView lblAvatar;
 
+    private User userIn;
+
     private ProfileViewModel viewModel;
 
     @Override
@@ -63,6 +69,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         setupView();
+        getIntentData();
 
         //OnFocusListener
         txtName.setOnFocusChangeListener((v, hasFocus) -> setLblBold(lblName, hasFocus));
@@ -199,6 +206,40 @@ public class Profile extends AppCompatActivity {
                 checkWeb();
             }
         });
+    }
+
+    //Reception user of intent of the mainViewCard
+    private void getIntentData() {
+        Intent intent = getIntent();
+        if(intent!=null && intent.hasExtra(EXTRA_USER_FROM_CARD)){
+            userIn = intent.getParcelableExtra(EXTRA_USER_FROM_CARD);
+            fillFieldsProfile(userIn);
+        }
+    }
+
+    private void fillFieldsProfile(User userIn) {
+        lblName.setText(userIn.getName());
+        lblEmail.setText(userIn.getEmail());
+        lblPhoneNumber.setText(userIn.getPhoneNumber());
+        lblAddress.setText(userIn.getAddress());
+        lblWeb.setText(userIn.getWeb());
+        imgAvatar.setImageResource(userIn.getAvatar().getImageResId());
+    }
+
+    private void intentUserToCard(){
+        Intent intent = new Intent();
+        User userOut = new User(
+                userIn.getId(), txtName.getText().toString(), txtEmail.getText().toString(), txtPhoneNumber.getText().toString(), txtAddress.getText().toString(), txtWeb.getText().toString(), viewModel.getAvatar());
+        intent.putExtra(EXTRA_USER_TO_CARD, userOut);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    //startForResult of the MainCardView
+    public static void startForResult(Activity activity, int requestCode, User user){
+        Intent intent = new Intent(activity, Profile.class);
+        intent.putExtra(EXTRA_USER_FROM_CARD, user);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     //Recepcion datos
@@ -338,6 +379,7 @@ public class Profile extends AppCompatActivity {
         isCheckWeb=checkWeb();
         if(isCheckName && isCheckEmail && isCheckPhoneNumber && isCheckAddress && isCheckWeb){
             Snackbar.make(lblName,R.string.main_saved_succesfully, Snackbar.LENGTH_LONG).show();
+            intentUserToCard();
         }else{
             Snackbar.make(lblName, R.string.main_error_saving, Snackbar.LENGTH_LONG).show();
         }

@@ -7,6 +7,8 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
+import es.iessaladillo.pedrojoya.pr05.ui.mainViewCard.MainViewCard;
+import es.iessaladillo.pedrojoya.pr05.ui.profile.Profile;
 
 public class DataBaseUser {
 
@@ -34,6 +36,11 @@ public class DataBaseUser {
 
     public void deleteUser(User user){
         users.remove(user);
+        updateUsersLiveData();
+    }
+
+    public void editUser(User user) {
+        users.add(user);
         updateUsersLiveData();
     }
 }
