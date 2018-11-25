@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">RecyclerView</string>
+    <string name="avatar_label">Select Avatar</string>
+    <string name="main_invalid_data">Invalid data</string>
+    <string name="main_save">Save</string>
+    <string name="main_saved_succesfully">Student saved successfully</string>
+    <string name="main_error_saving">Error saving student</string>
+    <string name="avatar_select">Select</string>
+    <!-- TODO -->
+    <string name="description_imgAvatar">Image user</string>
+    <string name="main_imgPhonenumber">Image icon Phonenumber</string>
+    <string name="main_imgEmail">Image icon email</string>
+    <string name="main_imgAddress">Image icon address</string>
+    <string name="main_imgWeb">Image icon web</string>
+    <string name="main_txtName">(name)</string>
+    <string name="main_txtPhonenumber">(phone)</string>
+    <string name="main_txtEmail">(email)</string>
+    <string name="main_txtAddress">(address)</string>
+    <string name="main_txtWeb">(url)</string>
+    <string name="text_lblAvatar">TextView</string>
+    <string name="main_lblName">Name</string>
+    <string name="main_lblEmail">email</string>
+    <string name="main_lblPhonenumber">Phone Number</string>
+    <string name="main_lblAddress">Address</string>
+    <string name="main_lblWeb">Web</string>
+    <string name="main_no_users_yet">Crear nuevo usuario</string>
+    <string name="text_itemButtonEdit">Editar</string>
+    <string name="text_itemButtonDelete">Borrar</string>
+</resources>
