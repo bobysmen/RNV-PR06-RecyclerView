@@ -25,8 +25,6 @@ public class MainViewCard extends AppCompatActivity {
     private MainViewCardViewModel viewModel;
     private MainViewCardAdapter listAdapter;
 
-    private User userEditToDelete;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +68,8 @@ public class MainViewCard extends AppCompatActivity {
 
     private void editIntentUser(User user) {
         Profile.startForResult(MainViewCard.this, RC_EDIT, user);
-        //Save user to delete if return intents is ok
-        userEditToDelete = user;
+        //Save user to delete if return intents is ok. use Viewmodel cause destroy change orientation
+        viewModel.setUser(user);
     }
 
 
@@ -88,7 +86,7 @@ public class MainViewCard extends AppCompatActivity {
 
     private void editUser (User user){
         viewModel.addUser(user);
-        deleteUser(userEditToDelete);
+        deleteUser(viewModel.getUser());
     }
 
 

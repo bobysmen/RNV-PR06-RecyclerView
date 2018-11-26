@@ -69,6 +69,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         setupView();
+        //for change orientation
         if (savedInstanceState==null) {
             getIntentData();
         }
@@ -215,6 +216,8 @@ public class Profile extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent!=null && intent.hasExtra(EXTRA_USER_FROM_CARD)){
             userIn = intent.getParcelableExtra(EXTRA_USER_FROM_CARD);
+            //Save in viewModel for in the edit save ID user
+            viewModel.setUser(userIn);
             viewModel.setAvatar(userIn.getAvatar());
             fillFieldsProfile(userIn);
         }
@@ -232,10 +235,12 @@ public class Profile extends AppCompatActivity {
 
     private void intentUserToCard(){
         Intent intent = new Intent();
-        User userOut = null;
-        if (userIn!=null) {
+        User userOut;
+        //if viewmodel not null then has execute getIntentData() and then has execute startForResult with user
+        if (viewModel.getUser()!=null) {
             userOut = new User(
-                    userIn.getId(), txtName.getText().toString(), txtEmail.getText().toString(), txtPhoneNumber.getText().toString(), txtAddress.getText().toString(), txtWeb.getText().toString(), viewModel.getAvatar());
+                    viewModel.getUser().getId(), txtName.getText().toString(), txtEmail.getText().toString(), txtPhoneNumber.getText().toString(), txtAddress.getText().toString(), txtWeb.getText().toString(), viewModel.getAvatar());
+        //startForResult without user
         }else{
             //put id -1 to know that i dont know user id. In dataBaseUser change id for list size.
             userOut = new User(

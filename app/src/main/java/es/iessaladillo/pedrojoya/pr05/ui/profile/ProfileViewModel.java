@@ -6,6 +6,15 @@ import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 
 public class ProfileViewModel extends ViewModel {
     public Avatar avatar;
+    public User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Avatar getAvatar() {
         return avatar;

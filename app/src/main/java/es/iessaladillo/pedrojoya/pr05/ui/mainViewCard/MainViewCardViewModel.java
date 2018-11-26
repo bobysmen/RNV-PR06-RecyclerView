@@ -11,6 +11,7 @@ public class MainViewCardViewModel extends ViewModel {
 
     private final DataBaseUser dataBaseUser;
     private final LiveData<List<User>> users;
+    public User user;
 
     public MainViewCardViewModel(DataBaseUser dataBaseUser) {
         this.dataBaseUser = dataBaseUser;
@@ -27,5 +28,13 @@ public class MainViewCardViewModel extends ViewModel {
 
     public void addUser(User user) {
         dataBaseUser.addUser(user);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
