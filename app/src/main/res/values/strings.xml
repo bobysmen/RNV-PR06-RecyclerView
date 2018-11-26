@@ -26,4 +26,6 @@
     <string name="main_no_users_yet">Crear nuevo usuario</string>
     <string name="text_itemButtonEdit">Editar</string>
     <string name="text_itemButtonDelete">Borrar</string>
+    <string name="name_Profile">Form</string>
+    <string name="name_MainViewCard">Users</string>
 </resources>

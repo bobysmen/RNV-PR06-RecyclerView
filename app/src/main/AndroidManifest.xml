@@ -14,6 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.profile.Profile"
+            android:label="@string/name_Profile"
             android:windowSoftInputMode="adjustPan">
 
         </activity>
@@ -22,7 +23,8 @@
             android:label="@string/avatar_label"
             android:parentActivityName=".ui.profile.Profile"/>
         <activity
-            android:name=".ui.mainViewCard.MainViewCard">
+            android:name=".ui.mainViewCard.MainViewCard"
+            android:label="@string/name_MainViewCard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

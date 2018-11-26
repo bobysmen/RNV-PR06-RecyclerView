@@ -69,7 +69,9 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         setupView();
-        getIntentData();
+        if (savedInstanceState==null) {
+            getIntentData();
+        }
 
         //OnFocusListener
         txtName.setOnFocusChangeListener((v, hasFocus) -> setLblBold(lblName, hasFocus));
@@ -213,6 +215,7 @@ public class Profile extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent!=null && intent.hasExtra(EXTRA_USER_FROM_CARD)){
             userIn = intent.getParcelableExtra(EXTRA_USER_FROM_CARD);
+            viewModel.setAvatar(userIn.getAvatar());
             fillFieldsProfile(userIn);
         }
     }
@@ -223,7 +226,8 @@ public class Profile extends AppCompatActivity {
         txtPhoneNumber.setText(userIn.getPhoneNumber());
         txtAddress.setText(userIn.getAddress());
         txtWeb.setText(userIn.getWeb());
-        imgAvatar.setImageResource(userIn.getAvatar().getImageResId());
+        imgAvatar.setImageResource(viewModel.getAvatar().getImageResId());
+        lblAvatar.setText(viewModel.getAvatar().getName());
     }
 
     private void intentUserToCard(){
