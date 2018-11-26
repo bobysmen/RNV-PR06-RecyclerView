@@ -33,6 +33,7 @@ public class MainViewCardAdapter extends ListAdapter<User, MainViewCardAdapter.V
             public boolean areContentsTheSame(@NonNull User oldItem, @NonNull User newItem) {
                 return TextUtils.equals(oldItem.getName(), newItem.getName()) &&
                         TextUtils.equals(oldItem.getEmail(), newItem.getEmail()) &&
+                        TextUtils.equals(oldItem.getPhoneNumber(), newItem.getPhoneNumber()) &&
                         TextUtils.equals(oldItem.getAddress(), newItem.getAddress()) &&
                         oldItem.getAvatar().getImageResId() == newItem.getAvatar().getImageResId();
             }
